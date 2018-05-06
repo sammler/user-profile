@@ -6,6 +6,8 @@ module.exports = {
 
   COLLECTION_PREFIX: process.env.MONGODB_COLLECTION_PREFIX || 'user-profile~~',
 
+  COLLECTION_USER_PROFILE: 'profiles',
+
   FIELD_CREATED_AT: 's5r_created_at',
   FIELD_UPDATED_AT: 's5r_updated_at'
 };

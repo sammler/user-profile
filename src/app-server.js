@@ -7,7 +7,7 @@ const MongooseConnectionConfig = require('mongoose-connection-config');
 const path = require('path');
 
 const defaultConfig = require('./config/server-config');
-const mongoUri = new MongooseConnectionConfig(require('./config/mongoose-config')).getMongoUri();
+const MONGO_URI = new MongooseConnectionConfig(require('./config/mongoose-config')).getMongoUri();
 
 class AppServer {
 
@@ -33,7 +33,7 @@ class AppServer {
 
   async start() {
     await initializer(this.app, {directory: path.join(__dirname, 'config/initializers')});
-    await mongoose.connect(mongoUri);
+    await mongoose.connect(MONGO_URI);
 
     try {
       this.server = await this.app.listen(this.config.PORT);
