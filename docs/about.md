@@ -1,0 +1,1 @@
+Service to store settings for a given user.

@@ -1,0 +1,17 @@
+version: '2'
+services:
+
+  mongo:
+    image: sammlerio/mongo
+    ports:
+      - "27017:27017"
+    logging:
+      driver: none
+
+  rabbitmq:
+    image: sammlerio/rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    logging:
+      driver: none
