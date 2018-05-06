@@ -5,6 +5,18 @@ help:								## Show this help.
 	@echo ''
 .PHONY: help
 
+build:										## Build the docker image (production)
+	docker build --force-rm -t sammlerio/user-profile -f Dockerfile.prod .
+.PHONY: build
+
+run:											## Run the docker image
+	docker run -it sammlerio/user-profile
+.PHONY: run
+
+build-test:								## Build the docker image (test image)
+	docker build --force-rm -t sammlerio/user-profile-test -f Dockerfile.test .
+.PHONY: build-test
+
 gen-readme:					## Generate README.md (using docker-verb)
 	docker run --rm -v ${PWD}:/opt/verb stefanwalther/verb
 .PHONY: gen-readme
