@@ -31,6 +31,9 @@
     "mongoose": "^5.0.17",
     "mongoose-connection-config": "^0.1.0",
     "mongoose-timestamp": "^0.6.0",
+    "read-pkg-up": "^3.0.0",
+    "swagger-jsdoc": "^1.9.7",
+    "swagger-ui-express": "^3.0.8",
     "winster": "^0.2.10"
   },
   "devDependencies": {
