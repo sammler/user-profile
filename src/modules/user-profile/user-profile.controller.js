@@ -1,8 +1,9 @@
 
 class UserProfileController {
 
-  static AddChangeProfile() {
+  static AddChangeProfile(req, res, next) {
 
+    next();
   }
 
 }
