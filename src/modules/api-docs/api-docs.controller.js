@@ -1,7 +1,7 @@
 const HttpStatus = require('http-status-codes');
 const swaggerJsDocs = require('swagger-jsdoc');
 
-const swaggerConfig = require('./../../config/swagger-config');
+const swaggerConfig = require('./swagger-config');
 
 class ApiDocsController {
 

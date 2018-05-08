@@ -19,7 +19,7 @@ describe('UserProfile => integration tests', () => {
     await appServer.stop();
   });
 
-  describe.only('UserProfileModel => save', () => {
+  describe('UserProfileModel => save', () => {
     it('allows saving a new profile', async () => {
 
       const doc = {

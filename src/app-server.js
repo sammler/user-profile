@@ -7,33 +7,22 @@ const MongooseConnectionConfig = require('mongoose-connection-config');
 const path = require('path');
 
 const defaultConfig = require('./config/server-config');
-const MONGO_URI = new MongooseConnectionConfig(require('./config/mongoose-config')).getMongoUri();
 
 class AppServer {
 
   constructor(config) {
 
     this.config = _.extend(_.clone(defaultConfig), config || {});
-    this._validateConfig();
 
     this.server = null;
     this.logger = logger;
 
-    this._initApp();
-
-  }
-
-  _initApp() {
     this.app = express();
-  }
-
-  _validateConfig() {
 
   }
-
   async start() {
-    await initializer(this.app, {directory: path.join(__dirname, 'config/initializers')});
-    await mongoose.connect(MONGO_URI);
+    await initializer(this.app, {directory: path.join(__dirname, 'initializers')});
+    await mongoose.connect(new MongooseConnectionConfig(require('./config/mongoose-config')).getMongoUri());
 
     try {
       this.server = await this.app.listen(this.config.PORT);

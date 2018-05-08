@@ -14,9 +14,9 @@ const swaggerConfig = {
   },
   // Todo: make this dynamic
   apis: [
-    './src/api/config/swagger-definitions.js',
-    './src/api/modules/api-docs/api-docs.routes.js',
-    './src/api/modules/health-check/health-check.routes.js'
+    './src/config/swagger-definitions.js',
+    './src/modules/api-docs/api-docs.routes.js',
+    './src/modules/health-check/health-check.routes.js'
   ]
 };
 
