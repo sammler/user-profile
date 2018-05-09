@@ -3,8 +3,8 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: circleci/node:4.8.2
-      - image: mongo:3.4.4
+      - image: circleci/node:4.8.2@sha256:ddc83cb402457061b4d628d9045b6bc7ce16195f763001e50b80758348a0f9db
+      - image: mongo:3.4.4@sha256:26e4b6ec99e207c2d8056c7fccd43a07cfb378f0c1915a3f3e0a6ac6f10de292
     steps:
       - checkout
       - run:
@@ -21,8 +21,8 @@ jobs:
             - node_modules
   test:
     docker:
-      - image: circleci/node:4.8.2
-      - image: mongo:3.4.4
+      - image: circleci/node:4.8.2@sha256:ddc83cb402457061b4d628d9045b6bc7ce16195f763001e50b80758348a0f9db
+      - image: mongo:3.4.4@sha256:26e4b6ec99e207c2d8056c7fccd43a07cfb378f0c1915a3f3e0a6ac6f10de292
     steps:
       - checkout
       - run:
