@@ -8,12 +8,9 @@ const Schema = mongoose.Schema;
 
 /* eslint-disable camelcase */
 const schema = new Schema({
+  // The global user_id
   user_id: {
     type: Schema.ObjectId,
-    required: true
-  },
-  key: {
-    type: Schema.Types.String,
     required: true
   },
   values: {
@@ -30,7 +27,7 @@ const schema = new Schema({
 });
 /* eslint-enable camelcase */
 
-schema.index({ user_id: 1, key: 1}, { unique: true });
+schema.index({ user_id: 1}, { unique: true });
 schema.plugin(timeStamps, {createdAt: mongooseConfig.FIELD_CREATED_AT, updatedAt: mongooseConfig.FIELD_UPDATED_AT});
 
 module.exports = {
