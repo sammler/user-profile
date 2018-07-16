@@ -47,7 +47,7 @@ describe('UserProfile => integration tests', () => {
 
       } catch (e) {
         expect(e).to.exist;
-        expect(e).to.have.a.property('name').to.contain('BulkWriteError');
+        expect(e).to.have.a.property('name').to.contain('MongoError');
         expect(e).to.have.a.property('message').to.contain('E11000 duplicate key error collection');
       }
     });

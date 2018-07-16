@@ -1,5 +1,8 @@
 const superTest = require('supertest');
 const AppServer = require('./../../src/app-server');
+const testLib = require('./lib');
+
+
 
 describe('App-Server', () => {
 
@@ -13,6 +16,8 @@ describe('App-Server', () => {
   });
 
   afterEach(async () => {
+
+    await testLib.sleep(100);
     await appServer.stop();
   });
 
