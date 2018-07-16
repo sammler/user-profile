@@ -31,3 +31,7 @@ rs-deps: down-deps up-deps
 down-deps:								## Stop services being dependent on
 	docker-compose --f=docker-compose.deps.yml down
 .PHONY: down-deps
+
+circleci-build:
+	circleci build
+.PHONY: circleci-build
