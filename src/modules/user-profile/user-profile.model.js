@@ -13,13 +13,8 @@ const schema = new Schema({
     type: Schema.ObjectId,
     required: true
   },
-  values: {
+  profile: {
     type: Schema.Types.Mixed
-  },
-  doc_version: {
-    type: Schema.Types.String,
-    required: true,
-    default: '1'
   }
 }, {
   collection: mongooseConfig.COLLECTION_PREFIX + mongooseConfig.COLLECTION_USER_PROFILE,
