@@ -15,7 +15,7 @@ const basicUser = {
   }
 };
 
-describe('UserProfile => integration tests', () => {
+describe('UserProfile Model => integration tests', () => {
 
   let server;
   let appServer;
@@ -53,7 +53,7 @@ describe('UserProfile => integration tests', () => {
       const newProfile = await saveProfile(basicUser);
       expect(newProfile).to.exist;
 
-      await expect(saveProfile(basicUser)).to.be.rejectedWith(Error);
+      await expect(saveProfile(basicUser)).to.be.rejectedWith('E11000 duplicate key error collection:');
 
     });
 

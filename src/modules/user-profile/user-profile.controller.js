@@ -9,6 +9,8 @@ class UserProfileController {
     next();
   }
 
+  static Purge(req, res, next) {}
+
   static GetById(req, res, next) {
     next();
   }

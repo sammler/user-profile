@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const timeStamps = require('mongoose-timestamp');
 
 const mongooseConfig = require('./../../config/mongoose-config');
-// const logger = require('winster').instance();
 
 const Schema = mongoose.Schema;
 
