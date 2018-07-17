@@ -43,6 +43,7 @@ describe('UserProfile Model => integration tests', () => {
       expect(newProfile.errors).to.not.exist;
       expect(newProfile).to.have.a.property('user_id').to.be.equal(basicUser.user_id);
       expect(newProfile).to.have.a.property('profile').to.be.equal(basicUser.profile);
+      expect(newProfile).to.have.a.property('is_deleted').to.be.false;
       let count = await UserProfileModel.countDocuments({});
       expect(count).to.be.equal(1);
     });

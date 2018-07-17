@@ -16,7 +16,6 @@ describe('App-Server', () => {
   });
 
   afterEach(async () => {
-
     await testLib.sleep(100);
     await appServer.stop();
   });

@@ -4,6 +4,9 @@ const SERVER_CONFIG = {
   env: {
     NODE_ENV: process.env.NODE_ENV || 'development'
   },
+  jwt: {
+    JWT_SECRET: process.env.JWT_SECRET || 'my-secret'
+  }
 };
 
 module.exports = SERVER_CONFIG;

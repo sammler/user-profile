@@ -14,6 +14,11 @@ const schema = new Schema({
   },
   profile: {
     type: Schema.Types.Mixed
+  },
+  is_deleted: {
+    type: Boolean,
+    required: true,
+    default: false
   }
 }, {
   collection: mongooseConfig.COLLECTION_PREFIX + mongooseConfig.COLLECTION_USER_PROFILE,

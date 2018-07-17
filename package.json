@@ -24,11 +24,16 @@
   },
   "homepage": "https://github.com/sammler/user-profile#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "easy-rbac": "^3.1.0",
     "env-val": "^0.1.4",
     "express-initializers": "0.0.1",
+    "express-jwt": "^5.3.1",
     "express-result": "^0.1.4",
+    "jsonwebtoken": "^8.3.0",
     "lepus": "^0.1.4",
     "lodash": "^4.17.10",
+    "moment": "^2.22.2",
     "mongoose": "^5.2.4",
     "mongoose-connection-config": "^0.1.1",
     "mongoose-timestamp": "^0.6.0",
@@ -42,9 +47,11 @@
     "chai-as-promised": "^7.1.1",
     "eslint": "5.1.0",
     "eslint-config-space-single": "0.3.3",
+    "http-status": "^1.2.0",
     "husky": "0.14.3",
     "mocha": "5.2.0",
     "nyc": "^12.0.2",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "uuid": "^3.3.2"
   }
 }

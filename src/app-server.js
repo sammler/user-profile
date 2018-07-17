@@ -18,8 +18,8 @@ class AppServer {
     this.logger = logger;
 
     this.app = express();
-
   }
+
   async start() {
     await initializer(this.app, {directory: path.join(__dirname, 'initializers')});
     await mongoose.connect(new MongooseConnectionConfig(require('./config/mongoose-config')).getMongoUri());
