@@ -55,7 +55,7 @@ describe.only('UserProfile Model => integration tests', () => {
           .expect(HttpStatus.UNAUTHORIZED);
       });
 
-      it.only('can be created by authenticated users', async () => {
+      it('can be created by authenticated users', async () => {
 
         const id = mongoose.Types.ObjectId();
         const tokenPayload = {
@@ -75,12 +75,17 @@ describe.only('UserProfile Model => integration tests', () => {
           .send(doc)
           .expect(HttpStatus.OK)
           .then(result => {
+            // console.log('result', result);
             expect(result).to.exist;
             expect(result.body).to.exist;
             expect(result.body).to.have.a.property('is_deleted').to.be.false;
             expect(result.body).to.have.a.property('profile').to.deep.equal(doc.profile);
             expect(result.body).to.have.a.property('user_id').to.equals(doc.user_id.toString());
           })
+          .catch(err => {
+            console.log('we have an error', err);
+            expect(err).to.not.exist;
+          });
 
       });
       it('cannot be created by non-authenticated users');

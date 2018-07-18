@@ -3,19 +3,18 @@ const ExpressResult = require('express-result');
 
 class UserProfileController {
 
-  static async CreateUpdate(req, res) {
+  static async CreateUpdate(req, res, next) {
 
     const userProfile = new UserProfileModel(req.body);
 
-    await userProfile
-      .save()
-      .then(result => {
-        console.log('result', result);
-        ExpressResult.ok(res, result);
-      })
-      .catch(err => {
-        console.log('error', err);
-      });
+    try {
+      let result = await userProfile.save();
+      ExpressResult.ok(res, result);
+      next();
+    } catch (err) {
+      ExpressResult.error(res, {err})
+      next();
+    }
   }
 
   static Delete(req, res, next) {

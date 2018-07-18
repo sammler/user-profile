@@ -4,10 +4,7 @@ const rbac_config = {
 
   user: {
     can: [
-      {
-        name: 'user-profile:createUpdateOwn',
-        when: async (params) => params.user.user_id === params.userProfile.user_id
-      },
+      'user-profile:createUpdate',
       'user-profile:getOwn'
     ]
   },
@@ -21,25 +18,28 @@ const rbac_config = {
 };
 const rbac = new RBAC(rbac_config);
 
-function can(params) {
+function can(roleToCheck, params) {
 
   const _middleware = function (req, res, next) {
 
-    const role = req.user.role;
-    console.log('can:role: ', role);
+    const roles = req.user.roles;
+    console.log('req.user.roles: ', roles); //Todo: Remove console.log
+    console.log('can.roleToCheck: ', roleToCheck); //Todo: Remove console.log
+    console.log('can:params: ', params); //Todo: Remove console.log
 
-    console.log(rbac.can(role, 'user-profile:createUpdateOwn', params)
+    rbac.can(roles, roleToCheck, params)
       .then(result => {
         if (result) {
-          console.log('we have access');
+          console.log('we have access'); //Todo: Remove console.log
+          next();
         } else {
-          console.log('we dont have access');
-          ExpressResult.unauthorized(res, 'we just do not have access');
+          console.log('we dont have access');  //Todo: Remove console.log
+          return ExpressResult.unauthorized(res, 'we just do not have access');
         }
       })
       .catch(err => {
-        console.log('something else went wrong', err);
-      }));
+        console.log('something else went wrong', err); //Todo: Remove console.log
+      });
 
     next();
   };
