@@ -63,7 +63,7 @@ jobs:
           command: make run-integration-tests
       - run:
           name: CodeCov (upload integration tests)
-          command: bash <(curl -s https://codecov.io/bash)
+          command: bash <(curl -s https://codecov.io/bash) -t 605f2567-cd26-43ac-aacd-4e4b89ebec81
       - add_ssh_keys
       - deploy:
           name: Push image to Docker Hub
