@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+
+  mongo:
+    image: sammlerio/mongo
+    ports:
+      - 27017:27017
+
+  user-profile-test:
+    image: sammlerio/user-profile-test
+    environment:
+      - PORT=3011
+      - JWT_SECRET=foo
+      - MONGODB_DEBUG=false
+      - MONGODB_HOST=mongo
+      - MONGODB_PORT=27017
+      - NODE_ENV=test
+      - WINSTER_SUPRESS_LOGGING='true'
+    depends_on:
+      - mongo
+    volumes:
+      - ./coverage:/opt/user-profile/coverage
