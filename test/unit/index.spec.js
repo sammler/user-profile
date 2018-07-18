@@ -1,4 +1,4 @@
 
 describe('UNIT TESTS', () => {
-  it('we should have some here ...')
+  it('we should have some here ...');
 });

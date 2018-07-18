@@ -6,5 +6,5 @@ logger.trace('serverConfig', serverConfig);
 
 (async () => {
   const server = new AppServer(serverConfig);
-await server.start();
+  await server.start();
 })();

@@ -21,8 +21,6 @@ const schema = joi.object({
 
 }).required();
 
-
-
 const {error, value: envVars} = joi.validate(process.env, schema, {allowUnknown: true, stripUnknown: true});
 if (error) {
   throw new Error(`Config validation error: ${error.message}`);
@@ -42,6 +40,4 @@ const values = {
 };
 
 module.exports = values;
-
-
 

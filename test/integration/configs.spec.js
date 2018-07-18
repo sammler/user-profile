@@ -2,8 +2,6 @@ const superTest = require('supertest');
 const AppServer = require('./../../src/app-server');
 const testLib = require('./lib');
 
-
-
 describe('App-Server', () => {
 
   let server;

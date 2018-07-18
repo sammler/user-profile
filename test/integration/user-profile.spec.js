@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const testLib = require('./lib');
 const defaultConfig = require('./../../src/config/server-config');
 
-describe.only('UserProfile Model => integration tests', () => {
+describe('UserProfile Model => integration tests', () => {
 
   let server;
   let appServer;
@@ -16,7 +16,7 @@ describe.only('UserProfile Model => integration tests', () => {
     appServer = new AppServer(defaultConfig);
     await appServer.start();
     server = superTest(appServer.server);
-    await testLib.removeAll()
+    await testLib.removeAll();
   });
 
   afterEach(async () => {
@@ -27,7 +27,7 @@ describe.only('UserProfile Model => integration tests', () => {
 
     describe('using PUT `/v1/user-profiles`', () => {
 
-      it('returns UNAUTHORIZED for non-authenticated users', async() => {
+      it('returns UNAUTHORIZED for non-authenticated users', async () => {
 
         const doc = {
           user_id: mongoose.Types.ObjectId(),
@@ -43,7 +43,7 @@ describe.only('UserProfile Model => integration tests', () => {
 
       });
 
-      it('return UNAUTHORIZED for users with an invalid token', async() => {
+      it('return UNAUTHORIZED for users with an invalid token', async () => {
         const doc = {
           user_id: mongoose.Types.ObjectId(),
           token: 'foo'
@@ -75,7 +75,7 @@ describe.only('UserProfile Model => integration tests', () => {
           .send(doc)
           .expect(HttpStatus.OK)
           .then(result => {
-            // console.log('result', result);
+            // Console.log('result', result);
             expect(result).to.exist;
             expect(result.body).to.exist;
             expect(result.body).to.have.a.property('is_deleted').to.be.false;
@@ -114,10 +114,10 @@ describe.only('UserProfile Model => integration tests', () => {
       it('lists all user profiles for system users');
       it('does not list all user profiles for users');
       it('does not list all user profiles for owners');
-      it('lists also deleted user profiles.')
+      it('lists also deleted user profiles.');
     });
 
-    // it('can be fetched if not deleted');
+    // It('can be fetched if not deleted');
     // it('cannot be fetched if deleted');
     // it('can be deleted by the given user');
     // it('cannot be deleted by other users');
