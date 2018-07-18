@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router(); // eslint-disable-line new-cap
 const UserProfileController = require('./user-profile.controller.js');
 const processJwt = require('./../../middleware/processJwt');
-const can = require('./../../middleware/rbac');
+// Const can = require('./../../middleware/rbac');
 
 router.put('/v1/user-profiles/:id', processJwt, UserProfileController.CreateUpdate);
 

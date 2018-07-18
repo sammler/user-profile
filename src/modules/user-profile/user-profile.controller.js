@@ -12,7 +12,7 @@ class UserProfileController {
       ExpressResult.ok(res, result);
       next();
     } catch (err) {
-      ExpressResult.error(res, {err})
+      ExpressResult.error(res, {err});
       next();
     }
   }
@@ -22,6 +22,7 @@ class UserProfileController {
   }
 
   static Purge(req, res, next) {
+    next();
   }
 
   static GetById(req, res, next) {

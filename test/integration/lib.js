@@ -8,7 +8,7 @@ function sleep(ms) {
 }
 
 async function removeAll() {
-  return await UserProfileModel.remove();
+  await UserProfileModel.remove();
 }
 
 function getToken(payload) {

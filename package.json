@@ -11,7 +11,10 @@
     "lint:test": "eslint test",
     "lint:test:fix": "eslint test --fix",
     "start": "node ./src/index.js",
-    "start:watch": "nodemon ./src/api/index.js"
+    "start:watch": "nodemon ./src/api/index.js",
+    "test:integration": "export JWT_SECRET='My Secret' && nyc --reporter=lcov mocha './test/integration/**/*.spec.js' --require './test/mocha.conf.js' --timeout 6000",
+    "test:unit": "nyc --reporter=lcov mocha './test/unit/**/*.spec.js' --require './test/mocha.conf.js'"
+
   },
   "repository": {
     "type": "git",

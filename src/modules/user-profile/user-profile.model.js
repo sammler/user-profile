@@ -26,7 +26,7 @@ const schema = new Schema({
 });
 /* eslint-enable camelcase */
 
-schema.index({ user_id: 1}, { unique: true });
+schema.index({user_id: 1}, {unique: true});
 schema.plugin(timeStamps, {createdAt: mongooseConfig.FIELD_CREATED_AT, updatedAt: mongooseConfig.FIELD_UPDATED_AT});
 
 module.exports = {
