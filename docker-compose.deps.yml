@@ -2,7 +2,7 @@ version: '2'
 services:
 
   mongo:
-    image: sammlerio/mongo:latest@sha256:c8a1941d19da89eaa84b30276ec350e54f2e80bcd3bdd81f69a8f13070e8b333
+    image: sammlerio/mongo
     container_name: user-profile-mongo
     ports:
       - "27017:27017"

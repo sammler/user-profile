@@ -1,5 +1,9 @@
 const UserProfileModel = require('./user-profile.model').Model;
 const ExpressResult = require('express-result');
+const serverConfig = require('./../../config/server-config');
+const auditLogService = require('sammler-io-audit-logs');
+const auditLogActions = require('./../../config/audit-log-actions');
+const logger = require('winster').instance();
 
 class UserProfileController {
 
@@ -16,6 +20,11 @@ class UserProfileController {
           setDefaultsOnInsert: true
         }
       );
+      if (serverConfig.ENABLE_AUDIT_LOG === true) {
+          auditLogService.log(auditLogActions.SUBJECT, auditLogActions.cloudEvents.getCreateProfileEvent(req.user));
+        } else {
+          logger.verbose(`We are not audit-logging here (${serverConfig.ENABLE_AUDIT_LOG}).`);
+        }
       ExpressResult.ok(res, result);
     } catch (err) {
       ExpressResult.error(res, {err});

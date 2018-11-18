@@ -13,7 +13,7 @@ function getActorDetails(user) {
 }
 
 module.exports = {
-  SUBJECT_AUDIT_LOGS: 'audit-logs',
+  SUBJECT: 'user-profile',
   cloudEvents: {
     getCreateProfileEvent: props => {
       return Object.assign({

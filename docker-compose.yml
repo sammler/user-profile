@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+
+  mongo:
+    image: sammlerio/mongo:latest@sha256:c8a1941d19da89eaa84b30276ec350e54f2e80bcd3bdd81f69a8f13070e8b333
+    container_name: user-profile-mongo
+    ports:
+      - "27017:27017"
+    logging:
+      driver: none
+
+
+  user-profile:
+    image: sammlerio/user-profile
+    ports:
+      - "3011:3011"
+    environment:
+      - PORT=3011
+      - JWT_SECRET=foo
+      - MONGODB_DEBUG=false
+      - MONGODB_HOST=mongo
+      - MONGODB_PORT=27017
+      - WINSTER_SUPRESS_LOGGING='true'
+    depends_on:
+      - mongo

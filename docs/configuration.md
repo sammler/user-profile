@@ -3,7 +3,7 @@ _{%=name%}_ can be configured by the following environment variables:
 
 **General:**
 
-- `PORT` - The port to run the REST API (defaults to `3101`).
+- `PORT` - The port to run the REST API (defaults to `3011`).
 - `JWT_SECRET` - The secret used for JWT.
 
 **MongoDB:**
