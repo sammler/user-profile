@@ -14,8 +14,11 @@
     "start:watch": "nodemon ./src/api/index.js",
     "test:integration": "export JWT_SECRET='My Secret' && nyc --reporter=lcov mocha './test/integration/**/*.spec.js' --require './test/mocha.conf.js' --timeout 6000",
     "test:unit": "nyc --reporter=lcov mocha './test/unit/**/*.spec.js' --require './test/mocha.conf.js'",
-    "precommit": "npm run lint:fix"
-
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:fix"
+    }
   },
   "repository": {
     "type": "git",
