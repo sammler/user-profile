@@ -1,7 +1,7 @@
 const ExpressResult = require('express-result');
 const jwt = require('jsonwebtoken');
 const cfg = require('./../config/server-config');
-const logger = require('winster').instance();
+const logger = require('winster').instance(); // eslint-disable-line no-unused-vars
 
 function verifyJwtToken(req, res, next) {
 
@@ -11,17 +11,17 @@ function verifyJwtToken(req, res, next) {
     validationErrors.add('Property <token> is missing. Put the <token> in either your body or use <x-access-token> in the Http-header.');
   }
   if (validationErrors.length > 0) {
-    // logger.trace('checkToken /w validationErrors', validationErrors); // Todo: Remove console.log
+    // Logger.trace('checkToken /w validationErrors', validationErrors);
     return ExpressResult.unauthorized(res, validationErrors);
   }
 
   try {
     const decoded = jwt.verify(token, cfg.jwt.JWT_SECRET);
-    // logger.trace('checkToken: valid token', decoded); // Todo: Remove console.log
+    // Logger.trace('checkToken: valid token', decoded);
     req.user = decoded;
   } catch (err) {
     validationErrors.add('Invalid token');
-    // logger.trace('checkToken: invalid token'); // Todo: Remove console.log
+    // Logger.trace('checkToken: invalid token');
     return ExpressResult.unauthorized(res, validationErrors);
   }
   next();

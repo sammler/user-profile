@@ -39,7 +39,7 @@ describe('[integration] => REST API', () => {
         };
 
         await server
-          .put(`/v1/user-profiles`)
+          .put('/v1/user-profiles')
           .send(doc)
           .expect(HttpStatus.UNAUTHORIZED);
         expect(await UserProfileModel.countDocuments()).to.be.equal(0);
@@ -53,7 +53,7 @@ describe('[integration] => REST API', () => {
         };
 
         await server
-          .put(`/v1/user-profiles`)
+          .put('/v1/user-profiles')
           .send(doc)
           .expect(HttpStatus.UNAUTHORIZED);
 
@@ -76,7 +76,7 @@ describe('[integration] => REST API', () => {
         };
 
         await server
-          .put(`/v1/user-profiles`)
+          .put('/v1/user-profiles')
           .send(doc)
           .expect(HttpStatus.OK)
           .then(result => {
@@ -90,7 +90,7 @@ describe('[integration] => REST API', () => {
           });
 
         await server
-          .get(`/v1/user-profiles`)
+          .get('/v1/user-profiles')
           .send({
             token: testLib.getToken(tokenPayload)
           })
@@ -118,7 +118,7 @@ describe('[integration] => REST API', () => {
         };
 
         await server
-          .put(`/v1/user-profiles`)
+          .put('/v1/user-profiles')
           .set('x-access-token', testLib.getToken(tokenPayload))
           .send(doc)
           .expect(HttpStatus.OK)
@@ -133,7 +133,7 @@ describe('[integration] => REST API', () => {
           });
 
         await server
-          .get(`/v1/user-profiles`)
+          .get('/v1/user-profiles')
           .set('x-access-token', testLib.getToken(tokenPayload))
           .expect(HttpStatus.OK)
           .then(result => {
@@ -146,7 +146,7 @@ describe('[integration] => REST API', () => {
 
       });
 
-      it('can be modified by the owner', async() => {
+      it('can be modified by the owner', async () => {
         const id = mongoose.Types.ObjectId();
         const tokenPayload = {
           user_id: id,
@@ -161,7 +161,7 @@ describe('[integration] => REST API', () => {
         };
 
         await server
-          .put(`/v1/user-profiles`)
+          .put('/v1/user-profiles')
           .set('x-access-token', testLib.getToken(tokenPayload))
           .send(doc)
           .expect(HttpStatus.OK);
@@ -173,10 +173,10 @@ describe('[integration] => REST API', () => {
         });
 
         await server
-          .put(`/v1/user-profiles`)
+          .put('/v1/user-profiles')
           .set('x-access-token', testLib.getToken(tokenPayload))
           .send(updatedDoc)
-          //.expect(HttpStatus.OK)
+          // .expect(HttpStatus.OK)
           .then(result => {
             logger.trace(result);
             expect(result).to.exist;
@@ -188,7 +188,7 @@ describe('[integration] => REST API', () => {
           });
 
         await server
-          .get(`/v1/user-profiles`)
+          .get('/v1/user-profiles')
           .set('x-access-token', testLib.getToken(tokenPayload))
           .expect(HttpStatus.OK)
           .then(result => {
@@ -196,10 +196,10 @@ describe('[integration] => REST API', () => {
             expect(result.body).to.exist;
             expect(result.body).to.have.property('profile').to.have.property('foo').to.be.equal('baz');
           });
-          // .catch(err => {
-          //   logger.trace(err);
-          //   expect(err).to.not.exist;
-          // });
+        // .catch(err => {
+        //   logger.trace(err);
+        //   expect(err).to.not.exist;
+        // });
 
         expect(await UserProfileModel.countDocuments()).to.be.equal(1);
       });
