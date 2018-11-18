@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const testLib = require('./lib');
 const defaultConfig = require('./../../src/config/server-config');
 const UserProfileModel = require('../../src/modules/user-profile/user-profile.model').Model;
+const logger = require('winster').instance();
 
 describe('[integration] => REST API', () => {
 
@@ -38,7 +39,7 @@ describe('[integration] => REST API', () => {
         };
 
         await server
-          .put(`/v1/user-profiles/${doc.user_id}`)
+          .put(`/v1/user-profiles`)
           .send(doc)
           .expect(HttpStatus.UNAUTHORIZED);
         expect(await UserProfileModel.countDocuments()).to.be.equal(0);
@@ -52,7 +53,7 @@ describe('[integration] => REST API', () => {
         };
 
         await server
-          .put(`/v1/user-profiles/${doc.user_id}`)
+          .put(`/v1/user-profiles`)
           .send(doc)
           .expect(HttpStatus.UNAUTHORIZED);
 
@@ -75,23 +76,34 @@ describe('[integration] => REST API', () => {
         };
 
         await server
-          .put(`/v1/user-profiles/${doc.user_id}`)
+          .put(`/v1/user-profiles`)
           .send(doc)
           .expect(HttpStatus.OK)
           .then(result => {
             // Console.log('result', result);
             expect(result).to.exist;
             expect(result.body).to.exist;
-            expect(result.body).to.have.a.property('is_deleted').to.be.false;
-            expect(result.body).to.have.a.property('profile').to.deep.equal(doc.profile);
-            expect(result.body).to.have.a.property('user_id').to.equals(doc.user_id.toString());
           })
           .catch(err => {
             console.log('we have an error', err);
             expect(err).to.not.exist;
           });
+
+        await server
+          .get(`/v1/user-profiles`)
+          .send({
+            token: testLib.getToken(tokenPayload)
+          })
+          .expect(HttpStatus.OK)
+          .then(result => {
+            expect(result.body).to.have.a.property('is_deleted').to.be.false;
+            expect(result.body).to.have.a.property('profile').to.deep.equal(doc.profile);
+            expect(result.body).to.have.a.property('user_id').to.equals(doc.user_id.toString());
+          });
+
         expect(await UserProfileModel.countDocuments()).to.be.equal(1);
       });
+
       it('can be created by an authenticated user (header)', async () => {
         const id = mongoose.Types.ObjectId();
         const tokenPayload = {
@@ -106,7 +118,7 @@ describe('[integration] => REST API', () => {
         };
 
         await server
-          .put(`/v1/user-profiles/${doc.user_id}`)
+          .put(`/v1/user-profiles`)
           .set('x-access-token', testLib.getToken(tokenPayload))
           .send(doc)
           .expect(HttpStatus.OK)
@@ -114,19 +126,83 @@ describe('[integration] => REST API', () => {
             // Console.log('result', result);
             expect(result).to.exist;
             expect(result.body).to.exist;
-            expect(result.body).to.have.a.property('is_deleted').to.be.false;
-            expect(result.body).to.have.a.property('profile').to.deep.equal(doc.profile);
-            expect(result.body).to.have.a.property('user_id').to.equals(doc.user_id.toString());
           })
           .catch(err => {
             console.log('we have an error', err);
             expect(err).to.not.exist;
           });
 
+        await server
+          .get(`/v1/user-profiles`)
+          .set('x-access-token', testLib.getToken(tokenPayload))
+          .expect(HttpStatus.OK)
+          .then(result => {
+            expect(result.body).to.have.a.property('is_deleted').to.be.false;
+            expect(result.body).to.have.a.property('profile').to.deep.equal(doc.profile);
+            expect(result.body).to.have.a.property('user_id').to.equals(doc.user_id.toString());
+          });
+
         expect(await UserProfileModel.countDocuments()).to.be.equal(1);
 
       });
-      it('can be modified by the owner');
+
+      it('can be modified by the owner', async() => {
+        const id = mongoose.Types.ObjectId();
+        const tokenPayload = {
+          user_id: id,
+          roles: ['user']
+        };
+
+        const doc = {
+          user_id: id,
+          profile: {
+            foo: 'bar'
+          }
+        };
+
+        await server
+          .put(`/v1/user-profiles`)
+          .set('x-access-token', testLib.getToken(tokenPayload))
+          .send(doc)
+          .expect(HttpStatus.OK);
+
+        const updatedDoc = Object.assign(doc, {
+          profile: {
+            foo: 'baz'
+          }
+        });
+
+        await server
+          .put(`/v1/user-profiles`)
+          .set('x-access-token', testLib.getToken(tokenPayload))
+          .send(updatedDoc)
+          //.expect(HttpStatus.OK)
+          .then(result => {
+            logger.trace(result);
+            expect(result).to.exist;
+            expect(result.body).to.have.property('nModified').to.equal(1);
+          })
+          .catch(err => {
+            logger.trace(err);
+            expect(err).to.not.exist;
+          });
+
+        await server
+          .get(`/v1/user-profiles`)
+          .set('x-access-token', testLib.getToken(tokenPayload))
+          .expect(HttpStatus.OK)
+          .then(result => {
+            expect(result).to.exist;
+            expect(result.body).to.exist;
+            expect(result.body).to.have.property('profile').to.have.property('foo').to.be.equal('baz');
+          });
+          // .catch(err => {
+          //   logger.trace(err);
+          //   expect(err).to.not.exist;
+          // });
+
+        expect(await UserProfileModel.countDocuments()).to.be.equal(1);
+      });
       it('can be modified by the tenant_admin');
       it('can be modified by an admin');
       it('cannot be modified by other users');

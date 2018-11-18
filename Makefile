@@ -1,3 +1,5 @@
+NODE_VER := $(shell cat .nvmrc)
+
 help:											## Show this help.
 	@echo ''
 	@echo 'Available commands:'
@@ -6,7 +8,8 @@ help:											## Show this help.
 .PHONY: help
 
 build:										## Build the docker image (production)
-	docker build --force-rm -t sammlerio/user-profile -f Dockerfile.prod .
+	NODE_VER=$(NODE_VER)
+	docker build --build-arg NODE_VER=$(NODE_VER) --force-rm -t sammlerio/user-profile -f Dockerfile.prod .
 .PHONY: build
 
 run:											## Run the docker image

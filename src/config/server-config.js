@@ -6,7 +6,8 @@ const SERVER_CONFIG = {
   },
   jwt: {
     JWT_SECRET: process.env.JWT_SECRET || 'my-secret'
-  }
+  },
+  ENABLE_AUDIT_LOG: process.env.ENABLE_AUDIT_LOG === 'false' || true
 };
 
 module.exports = SERVER_CONFIG;

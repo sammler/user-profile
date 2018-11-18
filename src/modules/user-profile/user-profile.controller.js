@@ -3,17 +3,22 @@ const ExpressResult = require('express-result');
 
 class UserProfileController {
 
-  static async CreateUpdate(req, res, next) {
+  static async CreateUpdate(req, res) {
 
-    const userProfile = new UserProfileModel(req.body);
+    const user_id = req.user.user_id;
 
     try {
-      let result = await userProfile.save();
+      let result = await UserProfileModel.update(
+        {user_id: user_id},
+        req.body,
+        {
+          upsert: true,
+          setDefaultsOnInsert: true
+        }
+      );
       ExpressResult.ok(res, result);
-      next();
     } catch (err) {
       ExpressResult.error(res, {err});
-      next();
     }
   }
 
@@ -23,6 +28,15 @@ class UserProfileController {
 
   static Purge(req, res, next) {
     next();
+  }
+
+  static Get(req, res) {
+
+    UserProfileModel
+      .findOne({user_id: req.user.user_id})
+      .exec()
+      .then(result => ExpressResult.ok(res, result))
+      .catch(err => ExpressResult.error(res, err));
   }
 
   static GetById(req, res, next) {

@@ -1,6 +1,7 @@
 version: '2'
 
 services:
+
   user-profile-test:
     image: sammlerio/user-profile-test
     command: npm run test:unit

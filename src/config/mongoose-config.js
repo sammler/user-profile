@@ -40,8 +40,8 @@ const values = {
 
   COLLECTION_USER_PROFILE: 'profiles',
 
-  FIELD_CREATED_AT: 's5r_created_at',
-  FIELD_UPDATED_AT: 's5r_updated_at'
+  FIELD_CREATED_AT: 'created_at',
+  FIELD_UPDATED_AT: 'updated_at'
 };
 
 module.exports = values;

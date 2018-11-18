@@ -55,9 +55,6 @@ jobs:
       - run:
           name: Lint
           command: docker-compose --f=docker-compose.unit-tests.yml run user-profile-test npm run lint
-#      - run:
-#          name: CodeCov (upload unit tests)
-#          command: bash <(curl -s https://codecov.io/bash)
       - run:
           name: Integration tests
           command: make run-integration-tests
