@@ -1,6 +1,5 @@
 
-
-function verifyOwnUserProfile(req, res, next) {
+function verifyOwnUserProfile(/*req, res, next*/) {
 
 }
 
