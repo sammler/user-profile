@@ -47,7 +47,7 @@
     "read-pkg-up": "^4.0.0",
     "sammler-io-audit-logs": "0.0.4",
     "swagger-jsdoc": "^3.0.0",
-    "swagger-ui-express": "^3.0.10",
+    "swagger-ui-express": "^4.0.0",
     "winster": "^0.2.11"
   },
   "devDependencies": {
