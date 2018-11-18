@@ -17,7 +17,11 @@ const schema = joi.object({
 
   MONGODB_COLLECTION_PREFIX: joi
     .string()
-    .default('user-profile~~')
+    .default('user-profile~~'),
+
+  MONGODB_DATABASE: joi
+    .string()
+    .default('db')
 
 }).required();
 
@@ -30,6 +34,7 @@ const values = {
   debug: envVars.MONGODB_DEBUG,
   host: envVars.MONGODB_HOST,
   port: envVars.MONGODB_PORT,
+  database: envVars.MONGODB_DATABASE,
 
   COLLECTION_PREFIX: envVars.MONGODB_COLLECTION_PREFIX,
 

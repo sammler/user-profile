@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router(); // eslint-disable-line new-cap
 const UserProfileController = require('./user-profile.controller.js');
-const processJwt = require('./../../middleware/processJwt');
+const verifyJwtToken = require('../../middleware/verifyJwtToken');
 // Const can = require('./../../middleware/rbac');
 
-router.put('/v1/user-profiles/:id', processJwt, UserProfileController.CreateUpdate);
+router.put('/v1/user-profiles/:id', verifyJwtToken, UserProfileController.CreateUpdate);
 
 router.delete('/v1/user-profiles', UserProfileController.Delete);
 

@@ -6,8 +6,9 @@ const uuidv4 = require('uuid/v4');
 const mongoose = require('mongoose');
 const testLib = require('./lib');
 const defaultConfig = require('./../../src/config/server-config');
+const UserProfileModel = require('../../src/modules/user-profile/user-profile.model').Model;
 
-describe('UserProfile Model => integration tests', () => {
+describe('[integration] => REST API', () => {
 
   let server;
   let appServer;
@@ -40,6 +41,7 @@ describe('UserProfile Model => integration tests', () => {
           .put(`/v1/user-profiles/${doc.user_id}`)
           .send(doc)
           .expect(HttpStatus.UNAUTHORIZED);
+        expect(await UserProfileModel.countDocuments()).to.be.equal(0);
 
       });
 
@@ -49,13 +51,15 @@ describe('UserProfile Model => integration tests', () => {
           token: 'foo'
         };
 
-        return server
+        await server
           .put(`/v1/user-profiles/${doc.user_id}`)
           .send(doc)
           .expect(HttpStatus.UNAUTHORIZED);
+
+        expect(await UserProfileModel.countDocuments()).to.be.equal(0);
       });
 
-      it('can be created by authenticated users', async () => {
+      it('can be created by authenticated users (body)', async () => {
 
         const id = mongoose.Types.ObjectId();
         const tokenPayload = {
@@ -86,13 +90,47 @@ describe('UserProfile Model => integration tests', () => {
             console.log('we have an error', err);
             expect(err).to.not.exist;
           });
+        expect(await UserProfileModel.countDocuments()).to.be.equal(1);
+      });
+      it('can be created by an authenticated user (header)', async () => {
+        const id = mongoose.Types.ObjectId();
+        const tokenPayload = {
+          user_id: id,
+          roles: ['user']
+        };
+        const doc = {
+          user_id: id,
+          profile: {
+            foo: 'bar'
+          }
+        };
+
+        await server
+          .put(`/v1/user-profiles/${doc.user_id}`)
+          .set('x-access-token', testLib.getToken(tokenPayload))
+          .send(doc)
+          .expect(HttpStatus.OK)
+          .then(result => {
+            // Console.log('result', result);
+            expect(result).to.exist;
+            expect(result.body).to.exist;
+            expect(result.body).to.have.a.property('is_deleted').to.be.false;
+            expect(result.body).to.have.a.property('profile').to.deep.equal(doc.profile);
+            expect(result.body).to.have.a.property('user_id').to.equals(doc.user_id.toString());
+          })
+          .catch(err => {
+            console.log('we have an error', err);
+            expect(err).to.not.exist;
+          });
+
+        expect(await UserProfileModel.countDocuments()).to.be.equal(1);
 
       });
-      it('cannot be created by non-authenticated users');
       it('can be modified by the owner');
+      it('can be modified by the tenant_admin');
+      it('can be modified by an admin');
       it('cannot be modified by other users');
       it('cannot be modified by system users');
-      it('can be modified by admins');
     });
 
     describe('using DELETE `/v1/user-profiles/:id/`', () => {

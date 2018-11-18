@@ -21,9 +21,13 @@ gen-readme:								## Generate README.md (using docker-verb)
 	docker run --rm -v ${PWD}:/opt/verb stefanwalther/verb
 .PHONY: gen-readme
 
-up-deps:									## Run services being dependent on
-	docker-compose --f=docker-compose.deps.yml up
+up-deps:									## Run services being dependent on (daemon mode)
+	docker-compose --f=docker-compose.deps.yml up -d
 .PHONY: up-deps
+
+up-deps-i:								## Run services being dependent on (interactive mode)
+	docker-compose --f=docker-compose.deps.yml up
+.PHONY: up-deps-i
 
 rs-deps: down-deps up-deps
 .PHONY: rs-deps

@@ -21,8 +21,10 @@ class AppServer {
   }
 
   async start() {
+    const mongoUri = new MongooseConnectionConfig(require('./config/mongoose-config')).getMongoUri();
+    logger.trace('mongoUri', mongoUri);
     await initializer(this.app, {directory: path.join(__dirname, 'initializers')});
-    await mongoose.connect(new MongooseConnectionConfig(require('./config/mongoose-config')).getMongoUri());
+    await mongoose.connect(mongoUri, {useNewUrlParser: true});
 
     try {
       this.server = await this.app.listen(this.config.PORT);

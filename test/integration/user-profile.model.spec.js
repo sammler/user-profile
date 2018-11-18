@@ -15,7 +15,7 @@ const basicUser = {
   }
 };
 
-describe('UserProfile Model => integration tests', () => {
+describe('[integration] => UserProfile Model', () => {
 
   let server;
   let appServer;

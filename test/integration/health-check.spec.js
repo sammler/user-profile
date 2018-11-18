@@ -4,7 +4,7 @@ const AppServer = require('./../../src/app-server');
 
 const pkg = require('read-pkg-up').sync().pkg;
 
-describe('auth-service => health-check', () => {
+describe('[integration] => health-check', () => {
 
   let server;
   let appServer;

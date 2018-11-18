@@ -2,7 +2,7 @@ const superTest = require('supertest');
 const AppServer = require('./../../src/app-server');
 const testLib = require('./lib');
 
-describe('App-Server', () => {
+describe('[integration] => App-Server', () => {
 
   let server;
   let appServer;
