@@ -1,3 +1,5 @@
+REPO = sammlerio
+SERVICE = user-profile
 NODE_VER := $(shell cat .nvmrc)
 
 help:											## Show this help.
@@ -9,15 +11,15 @@ help:											## Show this help.
 
 build:										## Build the docker image (production)
 	NODE_VER=$(NODE_VER)
-	docker build --build-arg NODE_VER=$(NODE_VER) --force-rm -t sammlerio/user-profile -f Dockerfile.prod .
+	docker build --build-arg NODE_VER=$(NODE_VER) --force-rm -t ${REPO}/${SERVICE} -f Dockerfile.prod .
 .PHONY: build
 
 run:											## Run the docker image
-	docker run -it sammlerio/user-profile
+	docker run -it ${REPO}/${SERVICE}
 .PHONY: run
 
 build-test:								## Build the docker image (test image)
-	docker build --force-rm -t sammlerio/user-profile-test -f Dockerfile.test .
+	docker build --force-rm -t ${REPO}/${SERVICE}-test -f Dockerfile.test .
 .PHONY: build-test
 
 gen-readme:								## Generate README.md (using docker-verb)

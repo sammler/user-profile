@@ -21,10 +21,10 @@ class UserProfileController {
         }
       );
       if (serverConfig.ENABLE_AUDIT_LOG === true) {
-          auditLogService.log(auditLogActions.SUBJECT, auditLogActions.cloudEvents.getCreateProfileEvent(req.user));
-        } else {
-          logger.verbose(`We are not audit-logging here (${serverConfig.ENABLE_AUDIT_LOG}).`);
-        }
+        auditLogService.log(auditLogActions.SUBJECT, auditLogActions.cloudEvents.getCreateProfileEvent(req.user));
+      } else {
+        logger.verbose(`We are not audit-logging here (${serverConfig.ENABLE_AUDIT_LOG}).`);
+      }
       ExpressResult.ok(res, result);
     } catch (err) {
       ExpressResult.error(res, {err});

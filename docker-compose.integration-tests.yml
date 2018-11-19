@@ -17,6 +17,7 @@ services:
       - MONGODB_PORT=27017
       - NODE_ENV=test
       - WINSTER_SUPRESS_LOGGING='true'
+      - ENABLE_AUDIT_LOG='false'
     depends_on:
       - mongo
     volumes:
