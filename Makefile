@@ -11,7 +11,7 @@ help:											## Show this help.
 
 build:										## Build the docker image (production)
 	NODE_VER=$(NODE_VER)
-	docker build --build-arg NODE_VER=$(NODE_VER) --force-rm -t ${REPO}/${SERVICE} -f Dockerfile.prod .
+	docker build --build-arg NODE_VER=$(NODE_VER) -t ${REPO}/${SERVICE} -f Dockerfile.prod .
 .PHONY: build
 
 run:											## Run the docker image
@@ -41,25 +41,17 @@ down-deps:								## Stop services being dependent on
 	docker-compose --f=docker-compose.deps.yml down -t 0
 .PHONY: down-deps
 
-circleci-build:						## Run the circleci-tests locally.
-	circleci build
-.PHONY: circleci-build
+run-tests: 								## Run tests
+	docker-compose --f=docker-compose.tests.yml run user-profile-test npm run test
+.PHONY: run-tests
 
-up-test:									## Bring up the test environment (docker-compose up => docker-compose.test.yml)
-	docker-compose --f=docker-compose.test.yml up -d
-.PHONY: up-test
+circleci:									## Simulate the CircleCI tests
+	$(MAKE) build
+	$(MAKE) build-test
+	$(MAKE) run-tests
+.PHONY: circleci
 
-down-test:								## Tear down the test environment (docker-compose down => docker-compose.test.yml)
-	docker-compose --f=docker-compose.test.yml down
-.PHONY: down-test
-
-build-run-integration-tests: build build-test 		## Run integration tests
-	docker-compose --f=docker-compose.integration-tests.yml run user-profile-test npm run test:integration
-.PHONY: build-run-integration-tests
-
-run-integration-tests: 		## Run integration tests
-	docker-compose --f=docker-compose.integration-tests.yml run user-profile-test npm run test:integration
-.PHONY: run-integration-tests
-
-
+circleci-validate: 				## Validate the circleci config.
+	circleci config validate
+.PHONY: circleci-validate
 

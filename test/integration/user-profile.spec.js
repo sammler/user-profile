@@ -14,15 +14,18 @@ describe('[integration] => REST API', () => {
   let server;
   let appServer;
 
-  beforeEach(async () => {
+  before(async () => {
     appServer = new AppServer(defaultConfig);
     await appServer.start();
     server = superTest(appServer.server);
-    await testLib.removeAll();
   });
 
-  afterEach(async () => {
+  after(async () => {
     await appServer.stop();
+  });
+
+  beforeEach(async() => {
+    await testLib.removeAll();
   });
 
   describe('User profiles', () => {
@@ -60,7 +63,7 @@ describe('[integration] => REST API', () => {
         expect(await UserProfileModel.countDocuments()).to.be.equal(0);
       });
 
-      it('can be created by authenticated users (body)', async () => {
+      xit('can be created by authenticated users (body)', async () => {
 
         const id = mongoose.Types.ObjectId();
         const tokenPayload = {
@@ -80,7 +83,7 @@ describe('[integration] => REST API', () => {
           .send(doc)
           .expect(HttpStatus.OK)
           .then(result => {
-            // Console.log('result', result);
+            Console.log('result', result);
             expect(result).to.exist;
             expect(result.body).to.exist;
           })
@@ -104,7 +107,7 @@ describe('[integration] => REST API', () => {
         expect(await UserProfileModel.countDocuments()).to.be.equal(1);
       });
 
-      it('can be created by an authenticated user (header)', async () => {
+      xit('can be created by an authenticated user (header)', async () => {
         const id = mongoose.Types.ObjectId();
         const tokenPayload = {
           user_id: id,
@@ -146,7 +149,7 @@ describe('[integration] => REST API', () => {
 
       });
 
-      it('can be modified by the owner', async () => {
+      xit('can be modified by the owner', async () => {
         const id = mongoose.Types.ObjectId();
         const tokenPayload = {
           user_id: id,

@@ -12,8 +12,9 @@
     "lint:test:fix": "eslint test --fix",
     "start": "node ./src/index.js",
     "start:watch": "nodemon ./src/api/index.js",
-    "test:integration": "export JWT_SECRET='My Secret' && nyc --reporter=lcov mocha './test/integration/**/*.spec.js' --require './test/mocha.conf.js' --timeout 6000",
-    "test:unit": "nyc --reporter=lcov mocha './test/unit/**/*.spec.js' --require './test/mocha.conf.js'",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:integration": "export JWT_SECRET='My Secret' && nyc --reporter=lcov mocha './test/integration/**/*.spec.js' --require './test/mocha.conf.js' --timeout 6000 --exit",
+    "test:unit": "nyc --reporter=lcov mocha './test/unit/**/*.spec.js' --require './test/mocha.conf.js' --exit",
     "precommit": "npm run lint:fix"
   },
   "husky": {
