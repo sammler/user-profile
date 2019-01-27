@@ -49,7 +49,7 @@ jobs:
           command: make build-test
       - run:
           name: Lint
-          command: docker-compose --f=docker-compose.unit-tests.yml run user-profile-test npm run lint
+          command: make run-lint
       - run:
           name: Tests
           command: make run-tests
