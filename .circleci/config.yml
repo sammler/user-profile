@@ -10,15 +10,13 @@ jobs:
       DOCKER_COMPOSE_URL: https://github.com/docker/compose/releases/download/1.19.0/docker-compose-Linux-x86_64
     steps:
       - checkout
+      - add_ssh_keys
       - run:
           name: Upgrade Docker
           command: |
             set -e
             curl -sSL $DOCKER_URL | sudo tar -xz --strip-components=1 -C /usr/bin/
             sudo service docker restart
-      - run:
-          name: Login to Docker
-          command: docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
       - run:
           name: Pull public docker images in the background
           background: true
@@ -50,18 +48,17 @@ jobs:
           name: Build test image
           command: make build-test
       - run:
-          name: Setting up test environment
-          command: make up-test
-      - run:
           name: Lint
           command: docker-compose --f=docker-compose.unit-tests.yml run user-profile-test npm run lint
       - run:
-          name: Integration tests
-          command: make run-integration-tests
+          name: Tests
+          command: make run-tests
       - run:
           name: CodeCov (upload integration tests)
           command: bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
-      - add_ssh_keys
+      - run:
+          name: Login to Docker
+          command: docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
       - deploy:
           name: Push image to Docker Hub
           command: |

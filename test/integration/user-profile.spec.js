@@ -24,7 +24,7 @@ describe('[integration] => REST API', () => {
     await appServer.stop();
   });
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     await testLib.removeAll();
   });
 
