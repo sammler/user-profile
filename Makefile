@@ -42,11 +42,11 @@ down-deps:								## Stop services being dependent on
 .PHONY: down-deps
 
 run-lint:
-	docker-compose --f=docker-compose.tests.yml run user-profile-test npm run lint
+	docker-compose --f=docker-compose.tests.yml run §{SERVICE}-test npm run lint
 .PHONY: run-lint
 
 run-tests: 								## Run tests
-	docker-compose --f=docker-compose.tests.yml run user-profile-test npm run test
+	docker-compose --f=docker-compose.tests.yml run ${SERVICE}-test npm run test
 .PHONY: run-tests
 
 circleci:									## Simulate the CircleCI tests
