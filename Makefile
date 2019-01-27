@@ -41,7 +41,7 @@ down-deps:								## Stop services being dependent on
 	docker-compose --f=docker-compose.deps.yml down -t 0
 .PHONY: down-deps
 
-run-lint:
+run-lint:									## Run all lint-tests (src + test)
 	docker-compose --f=docker-compose.tests.yml run ${SERVICE}-test npm run lint
 .PHONY: run-lint
 
