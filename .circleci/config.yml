@@ -54,7 +54,7 @@ jobs:
           name: Tests
           command: make run-tests
       - run:
-          name: CodeCov (upload integration tests)
+          name: CodeCov (upload coverage for all tests)
           command: bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
       - run:
           name: Login to Docker
