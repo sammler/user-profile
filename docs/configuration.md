@@ -13,15 +13,6 @@ _{%=name%}_ can be configured by the following environment variables:
 - `MONGODB_PORT` - MongoDB port, defaults to `27017`. 
 - `MONGODB_DATABASE` - The MongoDB database, defaults to `sammlerio`.
 
-**NATS-Streaming**
-
-- `NATS_STREAMIING_SERVER`
-- `NATS_STREAMING_CLUSTER`
-
-**Other**
-
-- RESOURCE_AUTH
-
 ---
 
 **Behavior:**
