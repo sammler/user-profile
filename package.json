@@ -52,7 +52,7 @@
     "winster": "^0.2.11"
   },
   "devDependencies": {
-    "chai": "4.2.0",
+    "chai": "4.5.0",
     "chai-as-promised": "7.1.1",
     "eslint": "5.13.0",
     "eslint-config-space-single": "0.3.5",
